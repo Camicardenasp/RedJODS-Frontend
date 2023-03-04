@@ -137,7 +137,7 @@ function ResponsiveAppBar() {
                             onClick={handleOpenNavMenu}
                             color="inherit"
                         >
-                            <MenuIcon />
+                            <MenuIcon style={{color: "black"}}/>
                         </IconButton>
                         <Menu
                             id="menu-appbar"
