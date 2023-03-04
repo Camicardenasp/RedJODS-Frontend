@@ -1,14 +1,29 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import './App.css';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import Root from './components/Root'
+import Home from './components/Home'
 import SignIn from './components/SignIn';
+import NewProject from './components/NewProject'
+import Admins from './components/Admins'
+
 
 function App() {
-  const [count, setCount] = useState(0);
+
+  const router=createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Root />}>
+        <Route index element={<Home />} />
+        <Route path='/signin' element={<SignIn />} />
+        <Route path='/newproject' element={<NewProject />} />
+        <Route path='/admins' element={<Admins />} />
+      </Route>
+    )
+  )
+
 
   return (
     <div className="App">
-      <SignIn />
+      <RouterProvider router={router} />
     </div>
   );
 }

@@ -13,13 +13,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from '/logo.svg'
+import { Link as LINK } from 'react-router-dom'
+
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://redJODS.netlify.app">
+        RedJODS
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -77,14 +79,14 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Recuérdame"
             />*/}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Ingresar
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Ingresar
+              </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -99,7 +101,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        {/*<Copyright sx={{ mt: 8, mb: 4 }} />*/}
+        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
