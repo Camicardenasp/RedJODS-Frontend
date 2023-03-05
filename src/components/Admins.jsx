@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { esES } from '@mui/material/locale';
 import EditButton from '/EditButton.svg'
 import DeleteButton from '/DeleteButton.svg'
+import { Link } from 'react-router-dom'
 
 
 export default function Admins() {
@@ -125,7 +126,7 @@ export default function Admins() {
 
             {/* This elements are displayed when screen is small */}
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                <h1 style={{ padding: "10px 10px 0px 10px" }}>Administradores</h1>
+                <h1 style={{ padding: "40px 10px 0px 10px" }}>Administradores</h1>
                 <img src={Decoración} alt="" style={{ padding: "0 0 10px 10px", maxWidth: "280px" }} />
             </Box>
 
@@ -136,9 +137,18 @@ export default function Admins() {
                 placeholder="¿Qué persona deseas buscar?"
                 onChange={handleChangeSearch}
                 className="ui input circular icon"
-                style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px", minWidth: "260px" }}
+                style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px", minWidth: "260px", margin: "40px" }}
             />
 
+            {/* Create User Button */}
+            <Link to="/newadmin">
+                <Button
+                    style={{ backgroundColor: "green", color: "white", margin: "40px" }}
+                >
+                    Crear Admin
+                </Button>
+            </Link>
+            
             {/* Table made with the DataGrid Template from MUI */}
             <ThemeProvider theme={theme}>
                 <div style={{ height: 400, width: '100vw' }}>

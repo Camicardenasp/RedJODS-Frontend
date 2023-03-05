@@ -18,7 +18,7 @@ import UserLogo from '/User.png'
 
 const pages=[
     {
-        name: 'Home |',
+        name: 'Inicio |',
         route: '/'
     },
     {
