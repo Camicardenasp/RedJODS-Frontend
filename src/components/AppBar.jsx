@@ -15,6 +15,8 @@ import logo from '/logo.svg'
 import { Link } from 'react-router-dom'
 import HomeLogo from '/HomeLogo.png'
 import UserLogo from '/User.png'
+import Decoración from '/Decoración.png'
+
 
 const pages=[
     {
@@ -69,7 +71,7 @@ function ResponsiveAppBar() {
     return (
         <AppBar position="static" style={{ backgroundColor: "white", justifyContent: 'space-between' }}>
             <Container maxWidth="xl">
-                <Toolbar style={{ display: "flex", justifyContent: 'space-between' }}>
+                <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
 
                     {/* This elements are displayed when screen is medium or large */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
@@ -78,30 +80,22 @@ function ResponsiveAppBar() {
                         </Link>
 
                     </Box>
-                    {/* This is the box corresponding to pages menu when the screen is large enough*/}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page.name}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                <Link to={page.route}>
-                                    {page.name}
-                                </Link>
-                            </Button>
-                        ))}
-                    </Box>
+                    
+                        {/* This is the box corresponding to pages menu when the screen is large enough*/}
+                    <Box sx={{ display: { xs: 'none', md: 'flex', flexDirection: 'column' } }}>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                {pages.map((page) => (
+                                        <Link to={page.route} style={{marginRight: "10px", marginLeft: "5px"}}>
+                                            {page.name}
+                                        </Link>
+                                ))}
+                            </div>
+                            <img src={Decoración} alt="" style={{ maxWidth: "460px", maxHeight: "5px" }} />
 
-                    {/* This elements are displayed when screen is small */}
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-                        <Link to="/">   
-                            <img src={logo} alt="" style={{ maxHeight: "53px" }} />
-                        </Link>
-                    </Box>
+                        </Box>
 
-                    {/* This is the box corresponding to users menu in any screen size */}
-                    <Box sx={{ flexGrow: 0 }}>
+                    {/* This is the box corresponding to users menu in large screen size */}
+                    <Box sx={{ display: { xs: 'none', md: 'flex', flexDirection: 'column' } }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src={UserLogo} />
@@ -133,8 +127,15 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
 
+                    {/* This elements are displayed when screen is small */}
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+                        <Link to="/">   
+                            <img src={logo} alt="" style={{ maxHeight: "53px" }} />
+                        </Link>
+                    </Box>
+
                     {/* This is the box corresponding to pages menu in small screens */}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -170,6 +171,16 @@ function ResponsiveAppBar() {
                                     </Link>
                                 </MenuItem>
                             ))}
+                            {/* This is the box corresponding to users menu in any screen size */}
+                            <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+                                {settings.map((setting) => (
+                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                        <Link to={setting.route}>
+                                            <Typography textAlign="center">{setting.name}</Typography>
+                                        </Link>
+                                    </MenuItem>
+                                ))}
+                            </Box>
                         </Menu>
                     </Box>
 
