@@ -6,13 +6,17 @@ import users from "../apis";
 
 
 export default function Admins() {
-
+    //Variable for fecthing users
     const [usersList, setUsersList]=useState([]);
+    //variables for filtering throughout search
+    const [search, setSearch]=useState([]);
+    const [usersListSearched, setUsersListSearched]=useState([]);
 
     useEffect(() => {
         async function fetchData() {
             const { data }=await users.get("/api/v1/users");
             setUsersList(data);
+            setUsersListSearched(data);
         }
 
         fetchData();
@@ -32,6 +36,23 @@ export default function Admins() {
         await users.put(`/api/v1/users/${id}`, user);
     };
 
+    //Code for search bar
+    const handleChangeSearch = e => {
+        setSearch(e.target.value);
+        filtering(e.target.value);
+    }
+
+    const filtering=(searchTerm) => {
+        var searchResult=usersList.filter((element) => {
+            if (element.name.toString().toLowerCase().includes(searchTerm.toLowerCase()) || 
+                element.lastname.toString().toLowerCase().includes(searchTerm.toLowerCase()
+            )) {
+                return element;
+            }
+        });
+        setUsersListSearched(searchResult);
+    }
+
     return (
         <div>
             {/* This elements are displayed when screen is medium or large */}
@@ -46,6 +67,16 @@ export default function Admins() {
                 <img src={Decoración} alt="" style={{ padding: "0 0 10px 10px", maxWidth: "280px" }} />
             </Box>
 
+            {/* RNF-03: it is required to have a search in the lists and to be able to search by name. */}
+            <input
+                type="text"
+                value={search}
+                placeholder="¿Qué persona deseas buscar?"
+                onChange={handleChangeSearch}
+                className="ui input circular icon"
+                style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px" }}
+            />
+
             <table>
                 <thead>
                     <tr>
@@ -57,7 +88,7 @@ export default function Admins() {
                     </tr>
                 </thead>
                 <tbody>
-                    {usersList.map((user) => (
+                    {usersListSearched.map((user) => (
                         <tr key={user._id}>
                             <td>
                                 {user.name}
