@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react'
+
 
 function Copyright(props) {
     return (
@@ -29,6 +31,25 @@ function Copyright(props) {
 const theme=createTheme();
 
 export default function EditAdmin() {
+
+    //Variable for fecthing users
+    const [usersList, setUsersList]=useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const { data }=await users.get("/api/v1/users");
+            setUsersList(data);
+            setUsersListSearched(data);
+        }
+
+        fetchData();
+    }, []);
+
+    const addFilm=async (user) => {
+        const { data }=await users.post("/api/v1/users", user);
+        setUsersList((oldList) => [...oldList, data]);
+    };
+
     const handleSubmit=(event) => {
         event.preventDefault();
         const data=new FormData(event.currentTarget);
