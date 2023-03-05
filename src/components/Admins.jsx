@@ -5,6 +5,11 @@ import Decoración from '/Decoración.png'
 import users from "../apis";
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { esES } from '@mui/material/locale';
+import EditButton from '/EditButton.svg'
+import DeleteButton from '/DeleteButton.svg'
+
 
 export default function Admins() {
     //Variable for fecthing users
@@ -62,33 +67,53 @@ export default function Admins() {
         event.stopPropagation();
     };
 
-
     //Array with the field names in the admins table
     const columns=[
-        { field: 'name', headerName: 'Nombre', width: 130 },
-        { field: 'lastname', headerName: 'Apellido', width: 130 },
-        { field: 'email', headerName: 'Correo Electrónico', width: 130 },
-        { field: 'password', headerName: 'Contraseña', width: 130 },
-        { field: 'is_admin', headerName: 'Admin', width: 130 },
+        { field: 'name', headerName: 'Nombre', width: 120 },
+        { field: 'lastname', headerName: 'Apellido', width: 120 },
+        { field: 'email', headerName: 'Correo Electrónico', width: 120 },
+        { field: 'password', headerName: 'Contraseña', width: 100 },
+        { field: 'is_admin', headerName: 'Admin', width: 60 },
         { 
             field: 'Acciones', 
             headerName: 'Acciones', 
             renderCell: (cellValues) => {
                 return (
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={(event) => {
-                            handleClick(event, cellValues)
-                        }}
-                    >
-                        Editar
-                    </Button>
+                    <div>
+                        <Button
+                            variant="contained"
+                            onClick={(event) => {
+                                handleEditClick(event, cellValues)
+                            }}
+                            style={{ backgroundColor: "transparent" }}
+                        >
+                            <img src={EditButton} alt="" />
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={(event) => {
+                                handleDeleteClick(event, cellValues)
+                            }}
+                            style={{ backgroundColor: "transparent" }}
+                        >
+                            <img src={DeleteButton} alt="" />
+                        </Button>
+                    </div>             
                 )
             },
-            width: 130 
+            width: 140 
         },
     ];
+
+    //Theme to change the DataGrid Language
+    const theme=createTheme(
+        {
+            palette: {
+                primary: { main: '#1976d2' },
+            },
+        },
+        esES,
+    );
 
     return (
         <div>
@@ -114,7 +139,9 @@ export default function Admins() {
                 style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px", minWidth: "260px" }}
             />
 
-                <div style={{ height: 400, width: '100vw' }}>
+            {/* Table made with the DataGrid Template from MUI */}
+            <ThemeProvider theme={theme}>
+                <div style={{ height: 650, width: '100vw' }}>
                     <DataGrid
                         rows={usersListSearched}
                         getRowId={(row) => row._id}
@@ -122,16 +149,16 @@ export default function Admins() {
                         initialState={{
                             pagination: { paginationModel: { pageSize: 10 } },
                         }}
-                        pageSizeOptions={[5, 10, 25, 50]}
+                        pageSizeOptions={[5, 10, 15, 20, 25]}
                         onCellClick={handleCellClick}
                         onRowClick={handleRowClick}
                     />
                 </div>
+            </ThemeProvider>;
+                
+            {/* <img src={admins} alt="" style={{ maxWidth: "100vw" }} /> */}
 
-            <img src={admins} alt="" style={{ maxWidth: "100vw" }} />
-
-
-{/* Versión sin MUI DataGrid */}
+            {/* Versión sin MUI DataGrid */}
 
             {/* <table>
                 <thead>
