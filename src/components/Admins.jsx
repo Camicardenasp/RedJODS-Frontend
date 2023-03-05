@@ -3,7 +3,8 @@ import admins from '/Admins.png'
 import Box from '@mui/material/Box';
 import Decoración from '/Decoración.png'
 import users from "../apis";
-
+import { DataGrid } from '@mui/x-data-grid';
+import { Button } from '@mui/material';
 
 export default function Admins() {
     //Variable for fecthing users
@@ -53,6 +54,42 @@ export default function Admins() {
         setUsersListSearched(searchResult);
     }
 
+    const handleCellClick = (param, event) => {
+        event.stopPropagation();
+    };
+
+    const handleRowClick= (param, event) => {
+        event.stopPropagation();
+    };
+
+
+    //Array with the field names in the admins table
+    const columns=[
+        { field: 'name', headerName: 'Nombre', width: 130 },
+        { field: 'lastname', headerName: 'Apellido', width: 130 },
+        { field: 'email', headerName: 'Correo Electrónico', width: 130 },
+        { field: 'password', headerName: 'Contraseña', width: 130 },
+        { field: 'is_admin', headerName: 'Admin', width: 130 },
+        { 
+            field: 'Acciones', 
+            headerName: 'Acciones', 
+            renderCell: (cellValues) => {
+                return (
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={(event) => {
+                            handleClick(event, cellValues)
+                        }}
+                    >
+                        Editar
+                    </Button>
+                )
+            },
+            width: 130 
+        },
+    ];
+
     return (
         <div>
             {/* This elements are displayed when screen is medium or large */}
@@ -74,10 +111,29 @@ export default function Admins() {
                 placeholder="¿Qué persona deseas buscar?"
                 onChange={handleChangeSearch}
                 className="ui input circular icon"
-                style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px" }}
+                style={{ backgroundColor: "transparent", border: "2px solid #558AF2", color: "#558AF2", textAlign: "center", padding: "17px", borderRadius: "30px", minWidth: "260px" }}
             />
 
-            <table>
+                <div style={{ height: 400, width: '100vw' }}>
+                    <DataGrid
+                        rows={usersListSearched}
+                        getRowId={(row) => row._id}
+                        columns={columns}
+                        initialState={{
+                            pagination: { paginationModel: { pageSize: 10 } },
+                        }}
+                        pageSizeOptions={[5, 10, 25, 50]}
+                        onCellClick={handleCellClick}
+                        onRowClick={handleRowClick}
+                    />
+                </div>
+
+            <img src={admins} alt="" style={{ maxWidth: "100vw" }} />
+
+
+{/* Versión sin MUI DataGrid */}
+
+            {/* <table>
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -105,9 +161,8 @@ export default function Admins() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
 
-            <img src={admins} alt="" style={{ maxWidth: "100vw" }} />
         </div>
     )
 }
