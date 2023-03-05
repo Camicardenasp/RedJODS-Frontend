@@ -8,15 +8,12 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '/logo.svg'
 import { Link } from 'react-router-dom'
-import HomeLogo from '/HomeLogo.png'
 import UserLogo from '/User.png'
 import Decoración from '/Decoración.png'
-
 
 const pages=[
     {
@@ -49,7 +46,7 @@ const settings=[
     // 'Logout'
 ];
 
-function ResponsiveAppBar() {
+function NavBar() {
     const [anchorElNav, setAnchorElNav]=React.useState(null);
     const [anchorElUser, setAnchorElUser]=React.useState(null);
 
@@ -85,7 +82,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ display: { xs: 'none', md: 'flex', flexDirection: 'column' } }}>
                             <div style={{ display: "flex", flexDirection: "row" }}>
                                 {pages.map((page) => (
-                                        <Link to={page.route} style={{marginRight: "10px", marginLeft: "5px"}}>
+                                        <Link key={page.name} to={page.route} style={{marginRight: "10px", marginLeft: "5px"}}>
                                             {page.name}
                                         </Link>
                                 ))}
@@ -189,4 +186,4 @@ function ResponsiveAppBar() {
         </AppBar>
     );
 }
-export default ResponsiveAppBar;
+export default NavBar;

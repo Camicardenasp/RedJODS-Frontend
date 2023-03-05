@@ -1,12 +1,12 @@
 import React from 'react'
-import AppBar from './AppBar'
+import NavBar from './NavBar'
 import {Outlet} from 'react-router-dom'
 import Footer from '/Footer.png'
 
 const Root = () => {
     return (
         <>
-            <AppBar/>
+            <NavBar/>
             <div>
                 <Outlet />
             </div>
