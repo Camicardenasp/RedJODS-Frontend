@@ -5,6 +5,7 @@ import Home from './components/Home'
 import SignIn from './components/SignIn';
 import NewProject from './components/NewProject'
 import Admins from './components/Admins'
+import Projects from './components/Projects'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route path='/' element={<Root />}>
         <Route index element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
+        <Route path='/projects' element={<Projects />} />
         <Route path='/newproject' element={<NewProject />} />
         <Route path='/admins' element={<Admins />} />
       </Route>

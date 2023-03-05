@@ -13,18 +13,24 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '/logo.svg'
 import { Link } from 'react-router-dom'
+import HomeLogo from '/HomeLogo.png'
+import UserLogo from '/User.png'
 
 const pages=[
     {
-        name: 'Proyectos',
+        name: 'Home |',
         route: '/'
     },
     {
-        name: 'Crear Proyecto',
+        name: 'Proyectos |',
+        route: '/projects'
+    },
+    {
+        name: 'Crear Proyecto |',
         route: '/newproject'
     },
     {
-        name: 'Admins',
+        name: 'Admins |',
         route: '/admins'
     }
 ];
@@ -61,9 +67,9 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="static" style={{backgroundColor: "white"}}>
+        <AppBar position="static" style={{ backgroundColor: "white", justifyContent: 'space-between' }}>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar style={{ display: "flex", justifyContent: 'space-between' }}>
 
                     {/* This elements are displayed when screen is medium or large */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
@@ -98,7 +104,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src={UserLogo} />
                             </IconButton>
                         </Tooltip>
                         <Menu
