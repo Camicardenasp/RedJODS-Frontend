@@ -141,7 +141,7 @@ export default function Admins() {
 
             {/* Table made with the DataGrid Template from MUI */}
             <ThemeProvider theme={theme}>
-                <div style={{ height: 650, width: '100vw' }}>
+                <div style={{ height: 400, width: '100vw' }}>
                     <DataGrid
                         rows={usersListSearched}
                         getRowId={(row) => row._id}
@@ -149,7 +149,7 @@ export default function Admins() {
                         initialState={{
                             pagination: { paginationModel: { pageSize: 10 } },
                         }}
-                        pageSizeOptions={[5, 10, 15, 20, 25]}
+                        pageSizeOptions={[5, 10, 15, 20]}
                         onCellClick={handleCellClick}
                         onRowClick={handleRowClick}
                     />
