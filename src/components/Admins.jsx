@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import admins from '/Admins.png'
 import Box from '@mui/material/Box';
 import Decoración from '/Decoración.png'
 import users from "../apis";
@@ -34,10 +33,13 @@ export default function Admins() {
         setUsersList((oldList) => [...oldList, data]);
     };
 
-    const removeFilm=async (id) => {
+    const removeUser=async (id) => {
         await users.delete(`/api/v1/users/${id}`);
         setUsersList((oldList) => oldList.filter((user) => user._id!==id));
     };
+
+    
+
 
     const editFilm=async (id, user) => {
         await users.put(`/api/v1/users/${id}`, user);
@@ -67,18 +69,21 @@ export default function Admins() {
     const handleRowClick= (param, event) => {
         event.stopPropagation();
     };
+    const handleDeleteClick = (param, event) => {
+        removeUser(param._id)
+    };
 
     //Array with the field names in the admins table
     const columns=[
-        { field: 'name', headerName: 'Nombre', width: 120 },
-        { field: 'lastname', headerName: 'Apellido', width: 120 },
-        { field: 'email', headerName: 'Correo Electrónico', width: 120 },
-        { field: 'password', headerName: 'Contraseña', width: 100 },
-        { field: 'is_admin', headerName: 'Admin', width: 60 },
+        { field: 'name', headerName: 'Nombre', width: 150 },
+        { field: 'lastname', headerName: 'Apellido', width: 150 },
+        { field: 'email', headerName: 'Correo Electrónico', width: 280 },
+        { field: 'password', headerName: 'Contraseña', width: 150 },
+        { field: 'is_admin', headerName: 'SúperAdmin', width: 150 },
         { 
             field: 'Acciones', 
             headerName: 'Acciones', 
-            renderCell: (cellValues) => {
+            renderCell: (cellValues, row) => {
                 return (
                     <div>
                         <Button
@@ -93,7 +98,7 @@ export default function Admins() {
                         <Button
                             variant="contained"
                             onClick={(event) => {
-                                handleDeleteClick(event, cellValues)
+                                handleDeleteClick(cellValues._id)
                             }}
                             style={{ backgroundColor: "transparent" }}
                         >
@@ -157,7 +162,7 @@ export default function Admins() {
                             initialState={{
                                 pagination: { paginationModel: { pageSize: 10 } },
                             }}
-                            pageSizeOptions={[5, 10, 15, 20]}
+                            pageSizeOptions={[5, 10, 25, 50]}
                             onCellClick={handleCellClick}
                             onRowClick={handleRowClick}
                         />
